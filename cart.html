@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pristine Optics | Checkout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .logo svg {
+            width: 24px;
+            height: 24px;
+            fill: #2563eb;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .item-price {
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            width: 100%;
+            background-color: #0f172a;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .hidden {
+            display: none;
+        }
+        .success-msg {
+            text-align: center;
+            color: #16a34a;
+            padding: 2rem;
+            display: none;
+        }
+        .empty-cart-msg {
+            text-align: center;
+            padding: 4rem;
+            color: #94a3b8;
+        }
+        /* Tabs for Prescription */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .tab-btn {
+            padding: 8px 16px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .tab-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M200,40H56A16,16,0,0,0,40,56v64a16,16,0,0,0,16,16H185.39l18.23,60.75A8,8,0,0,0,211.27,202l30.38-9.11a8,8,0,0,0,5.46-10.15l-24-80A16,16,0,0,0,208,88V56A16,16,0,0,0,200,40Zm-8,64H168V88h24Zm-40,0H128V56h24Zm-40,0H88V88h24ZM56,56H72v48H56ZM208,98.4l20.4,68L204.3,173.6l-18-60.12A108.6,108.6,0,0,0,208,104.5Z"/></svg>
+            Pristine Optics
+        </a>
+    </nav>
+
+    <main id="main-content">
+        <!-- Order Success Message -->
+        <div id="success" class="success-msg">
+            <svg style="width:64px; height:64px; fill:#16a34a; margin-bottom:1rem;" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+            <h1>Order Placed Successfully!</h1>
+            <p>Thank you for shopping with Pristine Optics.</p>
+            <a href="index.html" style="display:inline-block; margin-top:20px; color:#2563eb;">Return Home</a>
+        </div>
+
+        <!-- Checkout Form -->
+        <div id="checkout-form">
+            <div class="section">
+                <h2>1. Order Summary</h2>
+                <div id="item-details" class="item-row">
+                </div>
+            </div>
+
+            <!-- Prescription Section (Only for Eyesight) -->
+            <div id="prescription-section" class="section hidden">
+                <h2>2. Lens Customization</h2>
+                
+                <div class="form-group">
+                    <label>Lens Type</label>
+                    <select id="lens-type">
+                        <option>Standard Clear</option>
+                        <option>Blue-Cut (Computer Protection)</option>
+                        <option>Anti-Glare</option>
+                        <option>Photochromic (Transition)</option>
+                    </select>
+                </div>
+
+                <label>Prescription Details</label>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('upload')">Upload File</button>
+                    <button class="tab-btn" onclick="switchTab('manual')">Enter Manually</button>
+                </div>
+
+                <div id="tab-upload">
+                    <input type="file" accept="image/*, .pdf">
+                    <p style="font-size:0.8rem; color:#64748b; margin-top:5px;">Upload a photo of your doctor's prescription.</p>
+                </div>
+
+                <div id="tab-manual" class="hidden">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <input type="text" placeholder="Right Eye (OD) Sphere">
+                        <input type="text" placeholder="Left Eye (OS) Sphere">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3. Delivery & Payment</h2>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <textarea rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select>
+                        <option>Cash on Delivery (COD)</option>
+                        <option>Credit/Debit Card</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="placeOrder()">Place Order</button>
+        </div>
+        
+        <div id="empty-cart" class="empty-cart-msg hidden">
+            <h2>Your cart is empty</h2>
+            <a href="index.html" style="color:#2563eb;">Browse Products</a>
+        </div>
+    </main>
+
+    <script>
+        // Item:
+        const itemJson = localStorage.getItem('pristine_cart');
+        
+        if (!itemJson) {
+            document.getElementById('checkout-form').classList.add('hidden');
+            document.getElementById('empty-cart').classList.remove('hidden');
+        } else {
+            const item = JSON.parse(itemJson);
+            
+            // summary:
+            document.getElementById('item-details').innerHTML = `
+                <div>
+                    <span class="item-name">${item.name}</span>
+                    <br>
+                    <span style="font-size:0.9rem; color:#64748b;">${item.gender} • ${item.age} • ${item.type}</span>
+                </div>
+                <span class="item-price">$${item.price}</span>
+            `;
+
+            // IF eyeshght glasees selescted, show the prescription details here:
+            if (item.type === 'eyesight') {
+                document.getElementById('prescription-section').classList.remove('hidden');
+            }
+        }
+
+        // Tab Switcher logic here:
+        function switchTab(mode) {
+            const uploadDiv = document.getElementById('tab-upload');
+            const manualDiv = document.getElementById('tab-manual');
+            const btns = document.querySelectorAll('.tab-btn');
+
+            if (mode === 'upload') {
+                uploadDiv.classList.remove('hidden');
+                manualDiv.classList.add('hidden');
+                btns[0].classList.add('active');
+                btns[1].classList.remove('active');
+            } else {
+                uploadDiv.classList.add('hidden');
+                manualDiv.classList.remove('hidden');
+                btns[0].classList.remove('active');
+                btns[1].classList.add('active');
+            }
+        }
+
+        function placeOrder() {
+            // Validation type thing
+            document.getElementById('checkout-form').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            localStorage.removeItem('pristine_cart'); // Will clear the cart
+        }
+    </script>
+</body>
+</html>
