@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pristine Optics | Step 2</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+        .card-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 3rem;
+            width: 300px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .card.male:hover {
+            border-color: #2563eb;
+        }
+        .card.female:hover {
+            border-color: #ec4899;
+        }
+        .card svg {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .icon-male {
+            fill: #2563eb;
+        }
+        .icon-female {
+            fill: #ec4899;
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+        .back-link {
+            margin-top: 2rem;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav><div class="logo">Pristine Optics</div></nav>
+    <main>
+        <h1>Who are these for?</h1>
+        <p class="subtitle">Step 2 of 3</p>
+        <div class="card-container">
+            <a id="btn-male" href="#" class="card male">
+                <svg class="icon-male" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216,32H168a8,8,0,0,0,0,16h28.69L154.62,90.07a80,80,0,1,0,11.31,11.31L208,59.31V88a8,8,0,0,0,16,0V40A8,8,0,0,0,216,32ZM136,184a64,64,0,1,1,64-64A64.07,64.07,0,0,1,136,184Z"/></svg>
+                <h2>Male</h2>
+            </a>
+            <a id="btn-female" href="#" class="card female">
+                <svg class="icon-female" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M208,96a80,80,0,1,0-88,79.6V200H88a8,8,0,0,0,0,16h32v24a8,8,0,0,0,16,0V216h32a8,8,0,0,0,0-16H136V175.6A80.11,80.11,0,0,0,208,96Zm-16,0a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,96Z"/></svg>
+                <h2>Female</h2>
+            </a>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </main>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+        document.getElementById('btn-male').href = `age.html?type=${type}&gender=male`;
+        document.getElementById('btn-female').href = `age.html?type=${type}&gender=female`;
+    </script>
+</body>
+</html>
