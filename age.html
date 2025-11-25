@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pristine Optics | Step 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+        .card-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 3rem;
+            width: 300px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .card.adult:hover {
+            border-color: #4f46e5;
+        }
+        .card.kid:hover {
+            border-color: #22c55e;
+        }
+        .card svg {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .icon-adult {
+            fill: #4f46e5;
+        }
+        .icon-kid {
+            fill: #22c55e;
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 2rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .back-btn:hover {
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <nav><div class="logo">Pristine Optics</div></nav>
+    <main>
+        <h1>Select Age Group</h1>
+        <p class="subtitle">Step 3 of 3</p>
+        <div class="card-container">
+            <a id="btn-adult" href="#" class="card adult">
+                <svg class="icon-adult" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M230.93,220a8,8,0,0,1-6.93,4H32a8,8,0,0,1-6.92-12c15.23-26.33,38.7-45.21,66.09-54.16a72,72,0,1,1,73.66,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,230.93,220Z"/></svg>
+                <h2>Adult</h2>
+            </a>
+            <a id="btn-kid" href="#" class="card kid">
+                <svg class="icon-kid" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12,12A12,12,0,0,1,176,108Zm-48,44a48,48,0,0,1,42.44,24,8,8,0,0,1-13.88,8,32.05,32.05,0,0,0-57.12,0,8,8,0,0,1-13.88-8A48,48,0,0,1,128,152Z"/></svg>
+                <h2>Kid</h2>
+            </a>
+        </div>
+        <button onclick="history.back()" class="back-btn">Back</button>
+    </main>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+        const gender = params.get('gender');
+        document.getElementById('btn-adult').href = `products.html?type=${type}&gender=${gender}&age=adult`;
+        document.getElementById('btn-kid').href = `products.html?type=${type}&gender=${gender}&age=kid`;
+    </script>
+</body>
+</html>
