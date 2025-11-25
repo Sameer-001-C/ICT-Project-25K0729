@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pristine Optics | Shop</title>
+    <style>
+        * {
+            box-sizing: border-box; margin: 0; padding: 0; 
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo svg {
+            width: 24px;
+            height: 24px;
+            fill: #2563eb;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #0f172a;
+        }
+        .filter-label {
+            color: #64748b;
+            margin-top: 5px;
+            text-transform: capitalize;
+        }
+        .reset-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .image-placeholder {
+            background-color: #f1f5f9;
+            height: 160px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: background 0.3s;
+        }
+        .image-placeholder svg {
+            width: 80px;
+            height: 80px;
+            fill: #cbd5e1;
+            transition: fill 0.3s;
+        }
+        .product-card:hover .image-placeholder { background-color: #eff6ff; }
+        .product-card:hover .image-placeholder svg { fill: #60a5fa; }
+        .details {
+            margin-bottom: 1rem;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+        .price {
+            color: #2563eb;
+            font-weight: 700;
+        }
+        .meta {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        button {
+            width: 100%;
+            background-color: #0f172a;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            margin-top: auto;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            display: none;
+        }
+        .empty-state.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M200,40H56A16,16,0,0,0,40,56v64a16,16,0,0,0,16,16H185.39l18.23,60.75A8,8,0,0,0,211.27,202l30.38-9.11a8,8,0,0,0,5.46-10.15l-24-80A16,16,0,0,0,208,88V56A16,16,0,0,0,200,40Zm-8,64H168V88h24Zm-40,0H128V56h24Zm-40,0H88V88h24ZM56,56H72v48H56ZM208,98.4l20.4,68L204.3,173.6l-18-60.12A108.6,108.6,0,0,0,208,104.5Z"/></svg>
+            Pristine Optics
+        </a>
+    </nav>
+    <main>
+        <div class="header">
+            <div><h1>Your Matches</h1><p id="filters-label" class="filter-label">Finding matches...</p></div>
+            <a href="index.html" class="reset-link">Start Over</a>
+        </div>
+        <div id="grid" class="grid"></div>
+        <div id="empty" class="empty-state"><h2>No products found for this selection.</h2></div>
+    </main>
+    <script>
+        const inventory = [
+            { id:1, name: "Aviator Classic", type: "sunglasses", gender: "male", age: "adult", price: 149, image: "https://assets2.opsm.com/cdn-record-files-pi/f2a2b356-cf47-4e4c-bd0e-a35900057b03/23212806-eb0c-4038-afe5-ad1b007c135d/0RB3025__L0205__STD__noshad__qt.png?impolicy=OP_PDP_thumb" },
+            { id:2, name: "Stealth Bomber", type: "sunglasses", gender: "male", age: "adult", price: 165, image: "https://www.alaskasafety.com/wp-content/uploads/2022/10/MG104GM.jpg" },
+            { id:3, name: "Retro Square", type: "sunglasses", gender: "male", age: "adult", price: 135, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvjdfGVPjRLBNbyDgYo9m2ykCcyt_E8cASClOsL3eJSuPWb0SnhaE_dUPCxp7M2_HCmlQ&usqp=CAU" },
+            { id:4, name: "Sport Velocity", type: "sunglasses", gender: "male", age: "adult", price: 180, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ3hhARyTkkQ_2BRUMzWlD8oaryICccQGZYQ&s" },
+            { id:5, name: "Bella Cat-Eye", type: "sunglasses", gender: "female", age: "adult", price: 129, image: "https://images-na.ssl-images-amazon.com/images/I/61hUkatnkPL._AC_UL600_SR600,600_.jpg" },
+            { id:6, name: "Oversized Glamour", type: "sunglasses", gender: "female", age: "adult", price: 145, image: "https://ae01.alicdn.com/kf/S4ce6ea97845448d3823385c72132cc0eg.jpg" },
+            { id:7, name: "Rose Gold Aviator", type: "sunglasses", gender: "female", age: "adult", price: 155, image: "https://www.uk-tz.com/WebRoot/epagesUK/Shops/BT4570/58DA/21F0/7C76/69B2/9C9D/0A0C/05B7/C893/TAHARI.jpg" },
+            { id:8, name: "Hexagonal Chic", type: "sunglasses", gender: "female", age: "adult", price: 130, image: "https://images-eu.ssl-images-amazon.com/images/I/4150bCztxjL._AC_UL600_SR600,600_.jpg" },
+            { id:9, name: "Scholar Titanium", type: "eyesight", gender: "male", age: "adult", price: 189, image: "https://www.staples-3p.com/s7/is/image/Staples/93BC5334-A10B-4D6C-8BCB7314EA6D79B1_sc7?wid=700&hei=700" },
+            { id:10, name: "Rectangular Logic", type: "eyesight", gender: "male", age: "adult", price: 145, image: "https://images-eu.ssl-images-amazon.com/images/I/512O24MGnKL._AC_UL600_SR600,600_.jpg" },
+            { id:11, name: "Half-Rim Pro", type: "eyesight", gender: "male", age: "adult", price: 160, image: "https://ae01.alicdn.com/kf/H9c6a1c650c054ea1af71cf45d8fc5f00m.jpg" },
+            { id:12, name: "Clear Frame Modern", type: "eyesight", gender: "male", age: "adult", price: 125, image: "https://grandvision-media.imgix.net/m/54d739e8f0df64ad/original_png-0PH2269__5331__P21__shad__qt.png?fit=fill&fill=solid&fill-color=FFFFFF&w=1080&h=1080&fm=jpeg&auto=format" },
+            { id:13, name: "Daisy Acetate", type: "eyesight", gender: "female", age: "adult", price: 99, image: "https://bunnyeyez.com/cdn/shop/files/BE_ALLIE_2_P1_535x.jpg?v=1708458934" },
+            { id:14, name: "Tortoise Shell", type: "eyesight", gender: "female", age: "adult", price: 115, image: "https://sc04.alicdn.com/kf/H428e1b3fab9a4792aea0bfcdbd114cd1W.jpg" },
+            { id:15, name: "Crystal Cat-Eye", type: "eyesight", gender: "female", age: "adult", price: 135, image: "https://m.media-amazon.com/images/I/21Yq40cbwNL.jpg" },
+            { id:16, name: "Metal Wire Round", type: "eyesight", gender: "female", age: "adult", price: 140, image: "https://images-na.ssl-images-amazon.com/images/I/51FuOQzwRmL._SS400_.jpg" },
+            { id:17, name: "Junior Sport", type: "sunglasses", gender: "kid", age: "kid", price: 45, image: "https://www.kentcricketdirect.co.uk/wp-content/uploads/2022/02/Razor_sunglasses_grey.jpg" },
+            { id:18, name: "Tiny Aviator", type: "sunglasses", gender: "kid", age: "kid", price: 50, image: "https://sunniesforkids.com/cdn/shop/products/aviator_seablue_side.png?v=1738699012" },
+            { id:19, name: "Flexible Neon", type: "sunglasses", gender: "kid", age: "kid", price: 35, image: "https://boogzelclothing.com/cdn/shop/products/heart_shaped_sunglasses_boogzel_apparel_4_800x.jpg?v=1678894738" },
+            { id:20, name: "Flower Power", type: "sunglasses", gender: "kid", age: "kid", price: 40, image: "https://www.mylittlewardrobe.com.au/cdn/shop/products/H83a3306f83494c6da957e3086d96e78bJ.jpg?v=1669780000&width=1200" },
+            { id:21, name: "Little Reader", type: "eyesight", gender: "kid", age: "kid", price: 55, image: "https://www.sportique.com/cdn/shop/products/a-navy-blue-reading-glasses2_1000x.jpg?v=1609227939" },
+            { id:22, name: "Junior Flex", type: "eyesight", gender: "kid", age: "kid", price: 65, image: "https://m.media-amazon.com/images/I/51htqZQuGpL._SX522_.jpg" },
+            { id:23, name: "Wizard Round", type: "eyesight", gender: "kid", age: "kid", price: 60, image: "https://target.scene7.com/is/image/Target/GUEST_d1c525d1-bcaa-47ce-9ef5-90503babc3dc" },
+            { id:24, name: "Bright Square", type: "eyesight", gender: "kid", age: "kid", price: 50, image: "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/e4008eacfbd9e324ef1e9c7270f10237.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp" },
+        ];
+        const params = new URLSearchParams(window.location.search);
+        const sType = params.get('type');
+        const sGender = params.get('gender');
+        const sAge = params.get('age');
+        document.getElementById('filters-label').textContent = `${sGender} / ${sAge} / ${sType}`;
+        const matches = inventory.filter(p => {
+            const matchType = p.type === sType;
+            const matchAge = p.age === sAge;
+            let matchGender = (sAge === 'kid') ? (p.gender === 'kid') : (p.gender === sGender);
+            return matchType && matchAge && matchGender;
+        });
+        const grid = document.getElementById('grid');
+        const svgSun = `<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M128,64a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,112a48,48,0,1,1,48-48A48.05,48.05,0,0,1,128,176ZM56,128a8,8,0,0,1-8,8H16a8,8,0,0,1,0-16H48A8,8,0,0,1,56,128Zm184,0a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H248A8,8,0,0,1,240,128ZM128,56a8,8,0,0,1,8-8V16a8,8,0,0,1-16,0V48A8,8,0,0,1,128,56Zm0,144a8,8,0,0,1-8,8v32a8,8,0,0,1,16,0V208A8,8,0,0,1,128,200ZM77.09,65.78A8,8,0,0,1,78,54.6L55.33,32A8,8,0,1,1,44,43.27l22.63,22.63A7.94,7.94,0,0,1,77.09,65.78Zm134.84,124.44L189.3,212.85a8,8,0,0,1-11.31-11.32l22.63-22.63a8,8,0,0,1,11.32,11.32ZM178.91,65.78a8,8,0,0,1-11.32-11.32l22.63-22.62a8,8,0,1,1,11.31,11.31L178.91,65.78ZM66.65,190.22a8,8,0,0,1,11.31,11.32L55.33,224.17a8,8,0,0,1-11.32-11.32Z"/></svg>`;
+        const svgGlasses = `<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M200,56H56A16,16,0,0,0,40,72v64a16,16,0,0,0,16,16h49.44A24,24,0,0,1,150.56,152H200a16,16,0,0,0,16-16V72A16,16,0,0,0,200,56Zm0,80H150.56a39.84,39.84,0,0,0-45.12,0H56V72H200Z"/></svg>`;
+        if (matches.length === 0) { document.getElementById('empty').classList.add('visible'); }
+        else {
+            grid.innerHTML = matches.map(p => `
+                <div class="product-card">
+                    <img src="${p.image}" class="product-image">
+                    <div class="details"><div class="row"><span class="name">${p.name}</span><span class="price">$${p.price}</span></div><div class="meta">${sGender} • ${p.age}</div></div>
+                    <button onclick="buyNow(${p.id})">Buy Now</button>
+                </div>
+            `).join('');
+        }
+        function buyNow(id) {
+            const product = inventory.find(p => p.id === id);
+            localStorage.setItem('pristine_cart', JSON.stringify(product));
+            window.location.href = 'cart.html';
+        }
+    </script>
+</body>
+</html>
